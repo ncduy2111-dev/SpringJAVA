@@ -52,30 +52,50 @@
                                                 <!-- Cột 1 -->
                                                 <div class="col-md-6">
                                                     <div class="mb-3 ">
+                                                        <c:set var="nameError">
+                                                            <form:errors path="name" cssClass="invalid-feedback" />
+                                                        </c:set>
                                                         <label class="form-label">Name:</label>
-                                                        <form:input path="name" class="form-control" />
+                                                        <form:input path="name"
+                                                            class="form-control ${not empty nameError ? 'is-invalid' : ''}" />
+                                                        ${nameError}
                                                     </div>
                                                 </div>
 
                                                 <!-- Cột 2 -->
                                                 <div class="col-md-6">
                                                     <div class="mb-3 ">
+                                                        <c:set var="priceError">
+                                                            <form:errors path="price" cssClass="invalid-feedback" />
+                                                        </c:set>
                                                         <label class="form-label">Price:</label>
-                                                        <form:input path="price" class="form-control " />
+                                                        <form:input path="price"
+                                                            class="form-control ${not empty priceError ? 'is-invalid' : ''}" />
+                                                        ${priceError}
                                                     </div>
                                                 </div>
                                             </div>
 
                                             <div class="mb-3 ">
+                                                <c:set var="detailDescError">
+                                                    <form:errors path="detailDesc" cssClass="invalid-feedback" />
+                                                </c:set>
                                                 <label class="form-label">Detail description:</label>
-                                                <form:input path="detailDesc" class="form-control " />
+                                                <form:input path="detailDesc"
+                                                    class="form-control ${not empty detailDescError ? 'is-invalid' : ''}" />
+                                                ${detailDescError}
                                             </div>
 
                                             <div class="row">
                                                 <div class="col-md-6 ">
                                                     <div class="mb-3 ">
+                                                        <c:set var="shortDescError">
+                                                            <form:errors path="shortDesc" cssClass="invalid-feedback" />
+                                                        </c:set>
                                                         <label class="form-label">Short description:</label>
-                                                        <form:input path="shortDesc" class="form-control " />
+                                                        <form:input path="shortDesc"
+                                                            class="form-control ${not empty shortDescError ? 'is-invalid' : ''}" />
+                                                        ${shortDescError}
                                                     </div>
 
                                                     <label class="form-label">Factory:</label>
@@ -103,13 +123,23 @@
 
                                                 <div class="col-md-6">
                                                     <div class="mb-3 ">
+                                                        <c:set var="quantityError">
+                                                            <form:errors path="quantity" cssClass="invalid-feedback" />
+                                                        </c:set>
                                                         <label class="form-label">Quantity:</label>
-                                                        <form:input path="quantity" class="form-control " />
+                                                        <form:input path="quantity"
+                                                            class="form-control ${not empty quantityError ? 'is-invalid' : ''}" />
+                                                        ${quantityError}
                                                     </div>
 
                                                     <div class="mb-3 ">
+                                                        <c:set var="targetError">
+                                                            <form:errors path="target" cssClass="invalid-feedback" />
+                                                        </c:set>
                                                         <label class="form-label">Target:</label>
-                                                        <form:input path="target" class="form-control " />
+                                                        <form:input path="target"
+                                                            class="form-control ${not empty targetError ? 'is-invalid' : ''}" />
+                                                        ${targetError}
                                                     </div>
                                                 </div>
                                             </div>

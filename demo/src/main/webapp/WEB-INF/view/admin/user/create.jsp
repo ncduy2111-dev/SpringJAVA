@@ -52,8 +52,14 @@
                                                 <!-- Cột 1 -->
                                                 <div class="col-md-6">
                                                     <div class="mb-3 ">
+                                                        <c:set var="emailError">
+                                                            <form:errors path="email" cssClass="invalid-feedback" />
+                                                        </c:set>
                                                         <label class="form-label">Email:</label>
-                                                        <form:input path="email" class="form-control " type="email" />
+                                                        <form:input path="email"
+                                                            class="form-control ${not empty emailError ? 'is-invalid' : ''}"
+                                                            type="email" />
+                                                        ${emailError}
                                                     </div>
 
                                                     <div class="mb-3 ">
@@ -65,13 +71,23 @@
                                                 <!-- Cột 2 -->
                                                 <div class="col-md-6">
                                                     <div class="mb-3 ">
+                                                        <c:set var="passwordError">
+                                                            <form:errors path="password" cssClass="invalid-feedback" />
+                                                        </c:set>
                                                         <label class="form-label">Password:</label>
-                                                        <form:password path="password" class="form-control " />
+                                                        <form:password path="password"
+                                                            class="form-control ${not empty passwordError ? 'is-invalid' : ''}" />
+                                                        ${passwordError}
                                                     </div>
 
                                                     <div class="mb-3 ">
+                                                        <c:set var="fullnameError">
+                                                            <form:errors path="fullName" cssClass="invalid-feedback" />
+                                                        </c:set>
                                                         <label class="form-label">Fullname:</label>
-                                                        <form:input path="fullName" class="form-control " />
+                                                        <form:input path="fullName"
+                                                            class="form-control ${not empty fullnameError ? 'is-invalid' : ''}" />
+                                                        ${fullnameError}
                                                     </div>
                                                 </div>
                                             </div>

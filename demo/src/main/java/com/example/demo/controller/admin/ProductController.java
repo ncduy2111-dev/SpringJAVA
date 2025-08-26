@@ -3,10 +3,13 @@ package com.example.demo.controller.admin;
 import com.example.demo.service.ProductService;
 import com.example.demo.service.UploadFileService;
 
+import jakarta.validation.Valid;
+
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -41,9 +44,14 @@ public class ProductController {
     }
 
     @PostMapping("/admin/product")
-    public String createProduct(@ModelAttribute("newProduct") Product product,
+    public String createProduct(@ModelAttribute("newProduct") @Valid Product product,
+            BindingResult newProductBindingResult,
             @RequestPart("imageProductFile") MultipartFile file) {
         String image = this.uploadFileService.handleUploadFile(file, "image");
+
+        if (newProductBindingResult.hasErrors()) {
+            return "/admin/product/create";
+        }
 
         product.setImage(image);
         this.productService.handleSaveProduct(product);

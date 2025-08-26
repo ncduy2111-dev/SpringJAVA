@@ -1,5 +1,6 @@
 package com.example.demo.domain;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import jakarta.persistence.Entity;
@@ -8,6 +9,10 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "products")
@@ -15,25 +20,43 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+    @NotNull
+    @Size(min = 2, message = "Name cannot be null")
     private String name;
-    private double price;
-    private String image;
+
+    @NotNull(message = "Price must be greater than or equal to 0")
+    @DecimalMin(value = "0.0", inclusive = true)
+    private BigDecimal price;
+
+    @NotNull
+    @Size(min = 6, message = "Detail description cannot be null")
     private String detailDesc;
+
+    @NotNull
+    @Size(min = 6, message = "Short description cannot be null")
     private String shortDesc;
-    private long quantity;
-    private long sold;
-    private String factory;
+
+    @NotNull(message = "Price must be greater than or equal to 0")
+    @Min(value = 1, message = "Quantity must be greater than or equal to 0")
+    private int quantity;
+
+    @NotNull
+    @Size(min = 6, message = "Target cannot be null")
     private String target;
 
+    private String factory;
+    private int sold;
+    private String image;
+
     @OneToMany(mappedBy = "product")
-    private List<OrderDetail> oderDetail;
+    private List<OrderDetail> orderDetail;
 
     public Product() {
-
     }
 
-    public Product(long id, String name, double price, String image, String detailDesc, String shortDesc, long quantity,
-            long sold, String factory, String target) {
+    public Product(long id, String name, BigDecimal price, String image, String detailDesc, String shortDesc,
+            int quantity, int sold, String factory, String target) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -62,11 +85,11 @@ public class Product {
         this.name = name;
     }
 
-    public double getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 
@@ -94,19 +117,19 @@ public class Product {
         this.shortDesc = shortDesc;
     }
 
-    public long getQuantity() {
+    public int getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(long quantity) {
+    public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
 
-    public long getSold() {
+    public int getSold() {
         return sold;
     }
 
-    public void setSold(long sold) {
+    public void setSold(int sold) {
         this.sold = sold;
     }
 
