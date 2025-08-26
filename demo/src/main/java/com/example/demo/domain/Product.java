@@ -25,7 +25,7 @@ public class Product {
     private String factory;
     private String target;
 
-    @OneToMany(mappedBy = "order")
+    @OneToMany(mappedBy = "product")
     private List<OrderDetail> oderDetail;
 
     public Product() {

@@ -1,44 +1,91 @@
 <%@ page contentType="text/html" pageEncoding="UTF-8" %>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+        <!DOCTYPE html>
         <html lang="en">
 
         <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>User Detail</title>
-            <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+            <meta charset="utf-8" />
+            <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+            <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+            <meta name="description" content="" />
+            <meta name="author" content="" />
+            <title>Table User</title>
+            <link href="/css/styles.css" rel="stylesheet" />
+            <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
         </head>
 
-        <body>
-            <div class="container mt-5">
-                <div class="row">
-                    <div class="col-md-10 col-12 mx-auto">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <h3>User detail with id = ${user.id}</h3>
-                        </div>
+        <body class="sb-nav-fixed">
+            <!-- Header -->
+            <jsp:include page="../layout/header.jsp" />
 
-                        <hr class="my-4">
+            <div id="layoutSidenav">
+                <!-- Sidebar -->
+                <div id="layoutSidenav_nav">
+                    <jsp:include page="../layout/sidebar.jsp" />
+                </div>
 
-                        <div class="card" style="width: 60%;">
-                            <div class="card-header">
-                                User Information
+                <!-- Main Content -->
+                <div id="layoutSidenav_content">
+                    <main>
+                        <div class="container-fluid px-4">
+                            <h1 class="mt-4">Manager User</h1>
+                            <ol class="breadcrumb mb-4">
+                                <li class="breadcrumb-item"><a href="/admin">Dashboard</a></li>
+                                <li class="breadcrumb-item active">User</li>
+                            </ol>
+                            <div class="container-fluid px-4 mt-4">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <h3>Table Users</h3>
+                                    <a href="/admin/user/create" class="btn btn-primary">Create a User</a>
+                                </div>
+
+                                <hr class="my-4">
+
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-hover">
+                                        <thead class="table-light">
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Email</th>
+                                                <th>Fullname</th>
+                                                <th>Role</th>
+                                                <th class="text-center">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <c:forEach var="user" items="${users}">
+                                                <tr>
+                                                    <td>${user.id}</td>
+                                                    <td>${user.email}</td>
+                                                    <td>${user.fullName}</td>
+                                                    <td>${user.role.name}</td>
+                                                    <td class="text-center">
+                                                        <a href="/admin/user/detail/${user.id}"
+                                                            class="btn btn-success btn-sm">View</a>
+                                                        <a href="/admin/user/update/${user.id}"
+                                                            class="btn btn-warning btn-sm mx-1">Update</a>
+                                                        <a href="/admin/user/delete/${user.id}"
+                                                            class="btn btn-danger btn-sm">Delete</a>
+                                                    </td>
+                                                </tr>
+                                            </c:forEach>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
-                            <ul class="list-group list-group-flush">
-                                <li class="list-group-item">ID: ${user.id}</li>
-                                <li class="list-group-item">Email: ${user.email}</li>
-                                <li class="list-group-item">Fullname: ${user.fullName}</li>
-                                <li class="list-group-item">Password: ${user.password}</li>
-                                <li class="list-group-item">Address: ${user.address}</li>
-                            </ul>
                         </div>
+                    </main>
 
-                        <a href="/admin/user" type="button" class="btn btn-success mt-3">Back</a>
-                    </div>
+                    <!-- Footer -->
+                    <jsp:include page="../layout/footer.jsp" />
                 </div>
             </div>
 
-            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+            <!-- Scripts -->
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+                crossorigin="anonymous"></script>
+            <script src="/js/scripts.js"></script>
         </body>
 
         </html>

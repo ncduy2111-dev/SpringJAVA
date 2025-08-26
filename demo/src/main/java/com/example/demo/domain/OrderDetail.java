@@ -19,7 +19,7 @@ public class OrderDetail {
 
     @ManyToOne
     @JoinColumn(name = "order_id")
-    private Order oder;
+    private Order order;
 
     @ManyToOne
     @JoinColumn(name = "product_id")

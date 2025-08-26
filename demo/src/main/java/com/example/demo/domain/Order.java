@@ -24,7 +24,7 @@ public class Order {
     private User user;
 
     @OneToMany(mappedBy = "order")
-    private List<OrderDetail> oderDetail;
+    private List<OrderDetail> orderDetails;
 
     public Order() {
 
