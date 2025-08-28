@@ -3,6 +3,7 @@ package com.example.demo.domain;
 import java.math.BigDecimal;
 import java.util.List;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -31,6 +32,7 @@ public class Product {
 
     @NotNull
     @Size(min = 6, message = "Detail description cannot be null")
+    @Column(columnDefinition = "MEDIUMTEXT")
     private String detailDesc;
 
     @NotNull
@@ -46,7 +48,7 @@ public class Product {
     private String target;
 
     private String factory;
-    private int sold;
+    private int sold = 0;
     private String image;
 
     @OneToMany(mappedBy = "product")

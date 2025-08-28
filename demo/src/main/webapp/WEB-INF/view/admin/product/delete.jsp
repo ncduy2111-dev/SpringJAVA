@@ -30,22 +30,23 @@
                     <div id="layoutSidenav_content">
                         <main>
                             <div class="container-fluid px-4">
-                                <h1 class="mt-4">Manager Order</h1>
+                                <h1 class="mt-4">Manager Product</h1>
                                 <ol class="breadcrumb mb-4">
                                     <li class="breadcrumb-item"><a href="/admin">Dashboard</a></li>
                                     <li class="breadcrumb-item active">User</li>
                                 </ol>
                                 <div class="row">
                                     <div class="col-md-10 col-12 mx-auto">
-                                        <h3>Delete the user with id = ${id}</h3>
+                                        <h3>Delete the product with id = ${id}</h3>
 
                                         <hr class="my-4">
 
                                         <div class="alert alert-danger" role="alert">
-                                            Are you sure to delete this user?
+                                            Are you sure to delete this product?
                                         </div>
 
-                                        <form:form method="post" action="/admin/user/delete" modelAttribute="newUser">
+                                        <form:form method="post" action="/admin/product/delete"
+                                            modelAttribute="newProduct">
                                             <div class="input-group mb-3" style="display:none;">
                                                 <form:input path="id" class="form-control" value="${id}" />
                                             </div>
