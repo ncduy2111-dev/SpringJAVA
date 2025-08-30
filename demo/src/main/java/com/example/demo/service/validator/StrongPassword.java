@@ -16,7 +16,7 @@ import jakarta.validation.Payload;
 @Documented
 public @interface StrongPassword {
 
-    String message() default "Must be 8 characters long and combine upper/lowercase letters, numbers, and symbols";
+    String message() default "Pass phải có ít nhất 8 ký tự";
 
     Class<?>[] groups() default {};
 

@@ -35,13 +35,13 @@ public class ProductController {
         List<Product> arrProduct = this.productService.getAllProducts();
         model.addAttribute("products", arrProduct);
 
-        return "/admin/product/show";
+        return "admin/product/show";
     }
 
     @GetMapping("/admin/product/create")
     public String getCreateProductPage(Model model) {
         model.addAttribute("newProduct", new Product());
-        return "/admin/product/create";
+        return "admin/product/create";
     }
 
     @PostMapping("/admin/product")
@@ -51,7 +51,7 @@ public class ProductController {
         String image = this.uploadFileService.handleUploadFile(file, "product");
 
         if (newProductBindingResult.hasErrors()) {
-            return "/admin/product/create";
+            return "admin/product/create";
         }
 
         product.setImage(image);
@@ -91,7 +91,7 @@ public class ProductController {
         Product currentProduct = this.productService.getOneProductByID(product.getId());
 
         if (newProductBindingResult.hasErrors()) {
-            return "/admin/product/update";
+            return "admin/product/update";
         }
 
         if (currentProduct != null) {

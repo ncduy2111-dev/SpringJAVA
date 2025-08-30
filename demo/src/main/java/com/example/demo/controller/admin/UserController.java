@@ -92,7 +92,7 @@ public class UserController {
         String hashPassword = this.passwordEncoder.encode(user.getPassword());
 
         if (newUserBindingResult.hasErrors()) {
-            return "/admin/user/create";
+            return "admin/user/create";
         }
 
         user.setAvatar(avatar);

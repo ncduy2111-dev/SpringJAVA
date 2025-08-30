@@ -35,13 +35,13 @@ public class HomePageController {
     public String getMethodName(Model model) {
         List<Product> arrProducts = productService.getAllProducts();
         model.addAttribute("arrProducts", arrProducts);
-        return "/client/homepage/show";
+        return "client/homepage/show";
     }
 
     @GetMapping("/register")
     public String getRegisterPage(Model model) {
         model.addAttribute("registerUser", new RegisterDTO());
-        return "/client/auth/register";
+        return "client/auth/register";
     }
 
     @PostMapping("/register")
@@ -49,7 +49,7 @@ public class HomePageController {
             BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
-            return "/client/auth/register";
+            return "client/auth/register";
         }
 
         User user = userService.registerDTOtoUser(registerDTO);
@@ -65,7 +65,7 @@ public class HomePageController {
     @GetMapping("/login")
     public String getLoginPage(Model model) {
         // model.addAttribute("loginUser", new LoginDTO());
-        return "/client/auth/login";
+        return "client/auth/login";
     }
 
 }

@@ -34,8 +34,16 @@
                                                     <div class="card-body">
                                                         <form:form method="post" modelAttribute="registerUser"
                                                             action="/register">
-                                                            <c:set var="errorPassword">
+                                                            <c:set var="errorFirstName">
+                                                                <form:errors path="firstName"
+                                                                    cssClass="invalid-feedback" />
+                                                            </c:set>
+                                                            <c:set var="errorConfirmPassword">
                                                                 <form:errors path="confirmPassword"
+                                                                    cssClass="invalid-feedback" />
+                                                            </c:set>
+                                                            <c:set var="errorPassword">
+                                                                <form:errors path="password"
                                                                     cssClass="invalid-feedback" />
                                                             </c:set>
                                                             <c:set var="errorEmail">
@@ -44,11 +52,13 @@
                                                             <div class="row mb-3">
                                                                 <div class="col-md-6">
                                                                     <div class="form-floating mb-3 mb-md-0">
-                                                                        <form:input class="form-control"
+                                                                        <form:input
+                                                                            class="form-control ${not empty errorFirstName ? 'is-invalid' : ''}"
                                                                             id="inputFirstName" type="text"
                                                                             placeholder="Enter your first name"
                                                                             path="firstName" />
                                                                         <label for="inputFirstName">First name</label>
+                                                                        ${errorFirstName}
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-6">
@@ -83,12 +93,14 @@
                                                                 </div>
                                                                 <div class="col-md-6">
                                                                     <div class="form-floating mb-3 mb-md-0">
-                                                                        <form:input class="form-control"
+                                                                        <form:input
+                                                                            class="form-control ${not empty errorConfirmPassword ? 'is-invalid' : ''}"
                                                                             id="inputPasswordConfirm" type="password"
                                                                             placeholder="Confirm password"
                                                                             path="confirmPassword" />
                                                                         <label for="inputPasswordConfirm">Confirm
                                                                             Password</label>
+                                                                        ${errorConfirmPassword}
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -103,8 +115,7 @@
                                                         </form:form>
                                                     </div>
                                                     <div class="card-footer text-center py-3">
-                                                        <div class="small"><a href="login.html">Have an account? Go to
-                                                                login</a>
+                                                        <div><a href="/login">Have an account? Go to login</a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -114,18 +125,7 @@
                                 </main>
                             </div>
                             <div id="layoutAuthentication_footer">
-                                <footer class="py-4 bg-light mt-auto">
-                                    <div class="container-fluid px-4">
-                                        <div class="d-flex align-items-center justify-content-between small">
-                                            <div class="text-muted">Copyright &copy; Your Website 2023</div>
-                                            <div>
-                                                <a href="#">Privacy Policy</a>
-                                                &middot;
-                                                <a href="#">Terms &amp; Conditions</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </footer>
+
                             </div>
                         </div>
                         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
