@@ -1,18 +1,31 @@
 package com.example.demo.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import com.example.demo.domain.Cart;
+import com.example.demo.domain.CartDetail;
 import com.example.demo.domain.Product;
+import com.example.demo.domain.User;
+import com.example.demo.repository.CartDetailRepository;
+import com.example.demo.repository.CartRepository;
 import com.example.demo.repository.ProductRepository;
 
 @Service
 public class ProductService {
     private ProductRepository productRepository;
+    private CartRepository cartRepository;
+    private CartDetailRepository cartDetailRepository;
+    private UserService userService;
 
-    public ProductService(ProductRepository productRepository) {
+    public ProductService(ProductRepository productRepository, CartRepository cartRepository,
+            CartDetailRepository cartDetailRepository, UserService userService) {
         this.productRepository = productRepository;
+        this.cartRepository = cartRepository;
+        this.cartDetailRepository = cartDetailRepository;
+        this.userService = userService;
     }
 
     public void handleSaveProduct(Product product) {
@@ -33,5 +46,34 @@ public class ProductService {
 
     public Product getOneProductByID(long id) {
         return this.productRepository.findById(id);
+    }
+
+    public void handleAddProductToCart(String email, long productId) {
+        User user = userService.getOneUserByEmail(email);
+
+        if (user != null) {
+            Cart cart = cartRepository.findByUser(user);
+
+            if (cart == null) {
+                Cart otherCart = new Cart();
+                otherCart.setUser(user);
+                otherCart.setSum(1);
+
+                cart = this.cartRepository.save(otherCart);
+            }
+
+            Product productOptional = this.productRepository.findById(productId);
+            if (productOptional != null) {
+                Product realProduct = productOptional;
+
+                CartDetail cartDetail = new CartDetail();
+                cartDetail.setCart(cart);
+                cartDetail.setProduct(realProduct);
+                cartDetail.setPrice(realProduct.getPrice());
+                cartDetail.setQuantity(1);
+
+                this.cartDetailRepository.save(cartDetail);
+            }
+        }
     }
 }

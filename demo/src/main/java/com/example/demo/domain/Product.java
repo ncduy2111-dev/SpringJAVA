@@ -28,7 +28,7 @@ public class Product {
 
     @NotNull(message = "Price must be greater than or equal to 0")
     @DecimalMin(value = "0.0", inclusive = true)
-    private BigDecimal price;
+    private double price;
 
     @NotNull
     @Size(min = 6, message = "Detail description cannot be null")
@@ -57,7 +57,7 @@ public class Product {
     public Product() {
     }
 
-    public Product(long id, String name, BigDecimal price, String image, String detailDesc, String shortDesc,
+    public Product(long id, String name, double price, String image, String detailDesc, String shortDesc,
             int quantity, int sold, String factory, String target) {
         this.id = id;
         this.name = name;
@@ -87,11 +87,11 @@ public class Product {
         this.name = name;
     }
 
-    public BigDecimal getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(BigDecimal price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 

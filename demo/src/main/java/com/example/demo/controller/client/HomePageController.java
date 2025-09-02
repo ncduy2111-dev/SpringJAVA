@@ -16,6 +16,7 @@ import com.example.demo.domain.DTO.RegisterDTO;
 import com.example.demo.service.ProductService;
 import com.example.demo.service.UserService;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 
 @Controller
@@ -66,6 +67,12 @@ public class HomePageController {
     public String getLoginPage(Model model) {
         // model.addAttribute("loginUser", new LoginDTO());
         return "client/auth/login";
+    }
+
+    @GetMapping("/403")
+    public String get403Page(Model model) {
+        // model.addAttribute("loginUser", new LoginDTO());
+        return "client/auth/403";
     }
 
 }

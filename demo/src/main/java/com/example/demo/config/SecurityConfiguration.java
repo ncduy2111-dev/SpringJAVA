@@ -1,15 +1,21 @@
 package com.example.demo.config;
 
+import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.session.SessionRegistry;
+import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.session.HttpSessionEventPublisher;
+import org.springframework.session.security.web.authentication.SpringSessionRememberMeServices;
 
 import com.example.demo.service.CustomUserDetailsService;
 import com.example.demo.service.UserService;
@@ -47,6 +53,24 @@ public class SecurityConfiguration {
     }
 
     @Bean
+    public SpringSessionRememberMeServices rememberMeServices() {
+        SpringSessionRememberMeServices rememberMeServices = new SpringSessionRememberMeServices();
+        // optionally customize
+        rememberMeServices.setAlwaysRemember(true);
+        return rememberMeServices;
+    }
+
+    @Bean
+    public SessionRegistry sessionRegistry() {
+        return new SessionRegistryImpl();
+    }
+
+    @Bean
+    public static ServletListenerRegistrationBean<HttpSessionEventPublisher> httpSessionEventPublisher() {
+        return new ServletListenerRegistrationBean<>(new HttpSessionEventPublisher());
+    }
+
+    @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(authorize -> authorize
@@ -57,11 +81,25 @@ public class SecurityConfiguration {
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated())
 
+                .sessionManagement(session -> session
+                        .sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
+                        .invalidSessionUrl("/logout?expired")
+                        .maximumSessions(1)
+                        .maxSessionsPreventsLogin(false) // login mới -> kick cũ
+                        .expiredUrl("/login?expired")
+                        .sessionRegistry(sessionRegistry()))
+
+                .logout(logout -> logout.deleteCookies("JSESSIONID").invalidateHttpSession(true))
+
+                .rememberMe(rememberMe -> rememberMe
+                        .rememberMeServices(rememberMeServices()))
+
                 .formLogin(formLogin -> formLogin
                         .loginPage("/login")
                         .failureUrl("/login?error")
                         .successHandler(customSuccessHandler())
-                        .permitAll());
+                        .permitAll())
+                .exceptionHandling(ex -> ex.accessDeniedPage("/403"));
         return http.build();
     }
 }
