@@ -1,7 +1,6 @@
 package com.example.demo.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -12,6 +11,8 @@ import com.example.demo.domain.User;
 import com.example.demo.repository.CartDetailRepository;
 import com.example.demo.repository.CartRepository;
 import com.example.demo.repository.ProductRepository;
+
+import jakarta.servlet.http.HttpSession;
 
 @Service
 public class ProductService {
@@ -48,7 +49,7 @@ public class ProductService {
         return this.productRepository.findById(id);
     }
 
-    public void handleAddProductToCart(String email, long productId) {
+    public void handleAddProductToCart(String email, long productId, HttpSession session) {
         User user = userService.getOneUserByEmail(email);
 
         if (user != null) {
@@ -57,7 +58,7 @@ public class ProductService {
             if (cart == null) {
                 Cart otherCart = new Cart();
                 otherCart.setUser(user);
-                otherCart.setSum(1);
+                otherCart.setSum(0);
 
                 cart = this.cartRepository.save(otherCart);
             }
@@ -66,13 +67,25 @@ public class ProductService {
             if (productOptional != null) {
                 Product realProduct = productOptional;
 
-                CartDetail cartDetail = new CartDetail();
-                cartDetail.setCart(cart);
-                cartDetail.setProduct(realProduct);
-                cartDetail.setPrice(realProduct.getPrice());
-                cartDetail.setQuantity(1);
+                // Tìm xem sản phẩm đã có trong giỏ hàng chưa
+                CartDetail oldDetail = cartDetailRepository.findByCartAndProduct(cart, realProduct);
+                if (oldDetail == null) {
+                    CartDetail cartDetail = new CartDetail();
+                    cartDetail.setCart(cart);
+                    cartDetail.setProduct(realProduct);
+                    cartDetail.setPrice(realProduct.getPrice());
+                    cartDetail.setQuantity(1);
+                    this.cartDetailRepository.save(cartDetail);
 
-                this.cartDetailRepository.save(cartDetail);
+                    // Cập nhật tổng số lượng sản phẩm trong giỏ hàng
+                    int sum = cart.getSum() + 1;
+                    cart.setSum(sum);
+                    session.setAttribute("sum", sum);
+                    this.cartRepository.save(cart);
+                } else {
+                    oldDetail.setQuantity(oldDetail.getQuantity() + 1);
+                    this.cartDetailRepository.save(oldDetail);
+                }
             }
         }
     }

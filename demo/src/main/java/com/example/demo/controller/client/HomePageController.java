@@ -16,7 +16,6 @@ import com.example.demo.domain.DTO.RegisterDTO;
 import com.example.demo.service.ProductService;
 import com.example.demo.service.UserService;
 
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 
 @Controller

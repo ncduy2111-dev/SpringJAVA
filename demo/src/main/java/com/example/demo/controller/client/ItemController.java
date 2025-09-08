@@ -33,8 +33,14 @@ public class ItemController {
         long productId = id;
         String email = (String) session.getAttribute("email");
 
-        productService.handleAddProductToCart(email, productId);
+        productService.handleAddProductToCart(email, productId, session);
         return "redirect:/";
+    }
+
+    @GetMapping("/cart")
+    public String getCartPage(Model model) {
+        // model.addAttribute("cartItems", productService.getCartItems());
+        return "client/cart/show";
     }
 
 }
