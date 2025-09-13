@@ -10,4 +10,6 @@ import com.example.demo.domain.User;
 public interface CartRepository extends JpaRepository<Cart, Long> {
 
     Cart findByUser(User user);
+
+    void deleteCartDetailById(long cartDetailId);
 }

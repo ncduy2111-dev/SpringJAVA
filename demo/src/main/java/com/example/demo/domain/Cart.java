@@ -1,5 +1,6 @@
 package com.example.demo.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.Entity;
@@ -54,6 +55,9 @@ public class Cart {
     }
 
     public List<CartDetail> getCartDetails() {
+        if (cartDetails == null) {
+            cartDetails = new ArrayList<>();
+        }
         return cartDetails;
     }
 

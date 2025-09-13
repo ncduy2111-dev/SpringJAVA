@@ -9,4 +9,5 @@ import com.example.demo.domain.Product;
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
     Product findById(long id);
+
 }
