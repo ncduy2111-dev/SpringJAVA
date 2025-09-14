@@ -15,6 +15,7 @@ import com.example.demo.domain.Cart;
 import com.example.demo.domain.CartDetail;
 import com.example.demo.domain.User;
 import com.example.demo.service.CartService;
+import com.example.demo.service.OrderService;
 import com.example.demo.service.ProductService;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -25,10 +26,12 @@ public class ItemController {
 
     private final ProductService productService;
     private final CartService cartService;
+    private final OrderService orderService;
 
-    public ItemController(ProductService productService, CartService cartService) {
+    public ItemController(ProductService productService, CartService cartService, OrderService orderService) {
         this.productService = productService;
         this.cartService = cartService;
+        this.orderService = orderService;
     }
 
     @GetMapping("/product/{id}")
@@ -115,7 +118,18 @@ public class ItemController {
             @RequestParam("receiverAddress") String receiverAddress,
             @RequestParam("receiverPhone") String receiverPhone) {
         HttpSession session = request.getSession(false);
-        return "redirect:/";
+
+        User currentUser = new User(); // null
+        long id = (long) session.getAttribute("id");
+        currentUser.setId(id);
+
+        this.orderService.handlePlaceOrder(currentUser, session, receiverName, receiverAddress, receiverPhone);
+        return "redirect:/thanks";
+    }
+
+    @GetMapping("/thanks")
+    public String getThanksPage(Model model) {
+        return "client/cart/thanks";
     }
 
 }

@@ -43,7 +43,7 @@ public class CartService {
                 session.setAttribute("sum", sum);
                 this.cartRepository.save(cartCurrent);
             } else {
-                this.cartRepository.deleteById(cartCurrent.getId());
+                this.cartRepository.delete(cartCurrent);
                 session.setAttribute("sum", 0);
             }
         }
