@@ -32,7 +32,7 @@
                             <h1 class="mt-4">Manager Product</h1>
                             <ol class="breadcrumb mb-4">
                                 <li class="breadcrumb-item"><a href="/admin">Dashboard</a></li>
-                                <li class="breadcrumb-item active">User</li>
+                                <li class="breadcrumb-item active">Product</li>
                             </ol>
                             <div class="row">
                                 <div class="col-md-10 col-12 mx-auto">

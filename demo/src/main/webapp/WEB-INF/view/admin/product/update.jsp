@@ -50,9 +50,16 @@
                     <div id="layoutSidenav_content">
                         <main>
                             <div class="container-fluid px-4">
+                                <h1 class="mt-4">Manager Product</h1>
+                                <ol class="breadcrumb mb-4">
+                                    <li class="breadcrumb-item"><a href="/admin">Dashboard</a></li>
+                                    <li class="breadcrumb-item active">Product</li>
+                                </ol>
                                 <div class="row justify-content-center">
                                     <div class="col-lg-8 col-md-10 col-12">
                                         <h2 class="mb-4 text-center ">Update Product</h2>
+
+                                        <hr class="my-4">
 
                                         <form:form method="post" action="/admin/product" modelAttribute="newProduct"
                                             enctype="multipart/form-data">

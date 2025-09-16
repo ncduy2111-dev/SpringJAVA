@@ -41,6 +41,11 @@
                     <div id="layoutSidenav_content">
                         <main>
                             <div class="container-fluid px-4">
+                                <h1 class="mt-4">Manager Product</h1>
+                                <ol class="breadcrumb mb-4">
+                                    <li class="breadcrumb-item"><a href="/admin">Dashboard</a></li>
+                                    <li class="breadcrumb-item active">Product</li>
+                                </ol>
                                 <div class="row justify-content-center">
                                     <div class="col-lg-8 col-md-10 col-12">
                                         <h2 class="mb-4 text-center ">Create Product</h2>

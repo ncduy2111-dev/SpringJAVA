@@ -48,6 +48,10 @@ public class UserService {
         return this.roleRepository.findByname(name);
     }
 
+    public long getCountUser() {
+        return this.userRepository.count();
+    }
+
     public User registerDTOtoUser(RegisterDTO registerDTO) {
         User user = new User();
 

@@ -32,22 +32,49 @@ public class OrderService {
         this.cartDetailRepository = cartDetailRepository;
     }
 
+    public void handleSaveOrder(Order order) {
+        this.orderRepository.save(order);
+    }
+
+    public List<Order> getAllOrders() {
+        return this.orderRepository.findAll();
+    }
+
+    public Order getOneOrderById(long id) {
+        return this.orderRepository.findById(id).orElse(null);
+    }
+
+    public void deleteOrderById(long id) {
+        this.orderRepository.deleteById(id);
+    }
+
+    public long getCountOrder() {
+        return this.orderRepository.count();
+    }
+
     public void handlePlaceOrder(User user, HttpSession session, String receiverName, String receiverAddress,
             String receiverPhone) {
 
-        // Tạo db order
-        Order order = new Order();
-        order.setUser(user);
-        order.setReceiverName(receiverName);
-        order.setReceiverAddress(receiverAddress);
-        order.setReceiverPhone(receiverPhone);
-        order = this.orderRepository.save(order);
-
-        // Tạo db order detail
         Cart cart = this.cartRepository.findByUser(user);
         if (cart != null) {
             List<CartDetail> cartDetails = cart.getCartDetails();
 
+            // Tạo db order
+            Order order = new Order();
+            order.setUser(user);
+            order.setReceiverName(receiverName);
+            order.setReceiverAddress(receiverAddress);
+            order.setReceiverPhone(receiverPhone);
+            order.setStatus("PENDING");
+
+            double total = 0;
+            for (CartDetail cartDetail : cartDetails) {
+                total += cartDetail.getPrice() * cartDetail.getQuantity();
+            }
+            order.setTotalPrice(total);
+            order = this.orderRepository.save(order);
+
+            // Tạo db order detail
             for (CartDetail cartDetail : cartDetails) {
                 OrderDetail orderDetail = new OrderDetail();
 

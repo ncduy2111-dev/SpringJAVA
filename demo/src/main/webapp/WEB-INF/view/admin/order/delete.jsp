@@ -30,29 +30,29 @@
                     <div id="layoutSidenav_content">
                         <main>
                             <div class="container-fluid px-4">
-                                <h1 class="mt-4">Manager Product</h1>
+                                <h1 class="mt-4">Manager Order</h1>
                                 <ol class="breadcrumb mb-4">
                                     <li class="breadcrumb-item"><a href="/admin">Dashboard</a></li>
-                                    <li class="breadcrumb-item active">Product</li>
+                                    <li class="breadcrumb-item active">Order</li>
                                 </ol>
                                 <div class="row">
                                     <div class="col-md-10 col-12 mx-auto">
-                                        <h3>Delete the product with id = ${id}</h3>
+                                        <h3>Delete the order with id = ${id}</h3>
 
                                         <hr class="my-4">
 
                                         <div class="alert alert-danger" role="alert">
-                                            Are you sure to delete this product?
+                                            Are you sure to delete this order?
                                         </div>
 
-                                        <form:form method="post" action="/admin/product/delete"
-                                            modelAttribute="newProduct">
+                                        <form:form method="post" action="/admin/order/delete" modelAttribute="newOrder">
                                             <div class="input-group mb-3" style="display:none;">
                                                 <form:input path="id" class="form-control" value="${id}" />
                                             </div>
 
                                             <form:button type="submit" class="btn btn-danger">Confirm</form:button>
                                         </form:form>
+
                                     </div>
                                 </div>
                             </div>

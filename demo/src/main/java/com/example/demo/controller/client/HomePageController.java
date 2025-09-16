@@ -74,4 +74,11 @@ public class HomePageController {
         return "client/auth/403";
     }
 
+    @GetMapping("/history")
+    public String getHistoryPage(Model model) {
+        // List<Purchase> purchaseHistory = purchaseService.getPurchaseHistory();
+        // model.addAttribute("purchaseHistory", purchaseHistory);
+        return "client/cart/history";
+    }
+
 }
