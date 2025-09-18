@@ -57,25 +57,25 @@
                                                 <tbody>
                                                     <c:forEach var="orderDetail" items="${order.orderDetails}">
                                                         <tr>
-                                                            <td>
+                                                            <td scope="row">
                                                                 <div class="d-flex align-items-center">
                                                                     <img src="/images/product/${orderDetail.product.image}"
                                                                         class="img-fluid me-5 rounded-circle"
                                                                         style="width: 80px; height: 80px;" alt="">
                                                                 </div>
                                                             </td>
-                                                            <td>
-                                                                <a
-                                                                    href="/admin/product/detail/${orderDetail.product.id}">${orderDetail.product.name}</a>
+                                                            <td class="align-middle">
+                                                                <a href="/admin/product/detail/${orderDetail.product.id}"
+                                                                    class="mb-0 mt-4">${orderDetail.product.name}</a>
                                                             </td>
-                                                            <td>
+                                                            <td class="align-middle">
                                                                 <fmt:formatNumber type="number"
                                                                     value="${orderDetail.product.price}" />
                                                             </td>
-                                                            <td>
+                                                            <td class="align-middle">
                                                                 ${orderDetail.quantity}
                                                             </td>
-                                                            <td>
+                                                            <td class="align-middle">
                                                                 <fmt:formatNumber type="number"
                                                                     value="${order.totalPrice}" />
                                                             </td>

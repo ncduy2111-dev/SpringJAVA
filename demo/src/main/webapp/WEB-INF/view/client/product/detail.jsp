@@ -88,16 +88,25 @@
                                                 </button>
                                             </div>
                                             <input type="text" class="form-control form-control-sm text-center border-0"
-                                                value="1">
+                                                value="1" data-cart-detail-index="0">
                                             <div class="input-group-btn">
                                                 <button class="btn btn-sm btn-plus rounded-circle bg-light border">
                                                     <i class="fa fa-plus"></i>
                                                 </button>
                                             </div>
                                         </div>
-                                        <a href="#"
-                                            class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary"><i
-                                                class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
+                                        <form action="/add-product-from-view-detail" method="post"
+                                            modelAttribute="product">
+                                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                                            <input class="form-control d-none" type="text" value="${product.id}"
+                                                name="id" />
+                                            <input class="form-control d-none" type="text" name="quantity"
+                                                id="cartDetails0.quantity" />
+                                            <button
+                                                class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary"><i
+                                                    class="fa fa-shopping-bag me-2 text-primary"></i>Add to
+                                                cart</button>
+                                        </form>
                                     </div>
                                     <div class="col-lg-12">
                                         <nav>
@@ -123,36 +132,42 @@
                                 <div class="row g-4 fruite">
                                     <div class="col-lg-12">
                                         <div class="mb-4">
-                                            <h4>Categories</h4>
+                                            <h4>Brands</h4>
                                             <ul class="list-unstyled fruite-categorie">
                                                 <li>
                                                     <div class="d-flex justify-content-between fruite-name">
-                                                        <a href="#"><i class="fas fa-apple-alt me-2"></i>Apples</a>
-                                                        <span>(3)</span>
+                                                        <a href="#"><i class="fas fa-apple-alt me-2"></i>Apple</a>
+                                                        <span>(${countApple})</span>
                                                     </div>
                                                 </li>
                                                 <li>
                                                     <div class="d-flex justify-content-between fruite-name">
-                                                        <a href="#"><i class="fas fa-apple-alt me-2"></i>Oranges</a>
-                                                        <span>(5)</span>
+                                                        <a href="#"><i class="fas fa-apple-alt me-2"></i>Dell</a>
+                                                        <span>(${countDell})</span>
                                                     </div>
                                                 </li>
                                                 <li>
                                                     <div class="d-flex justify-content-between fruite-name">
-                                                        <a href="#"><i class="fas fa-apple-alt me-2"></i>Strawbery</a>
-                                                        <span>(2)</span>
+                                                        <a href="#"><i class="fas fa-apple-alt me-2"></i>Asus</a>
+                                                        <span>(${countAsus})</span>
                                                     </div>
                                                 </li>
                                                 <li>
                                                     <div class="d-flex justify-content-between fruite-name">
-                                                        <a href="#"><i class="fas fa-apple-alt me-2"></i>Banana</a>
-                                                        <span>(8)</span>
+                                                        <a href="#"><i class="fas fa-apple-alt me-2"></i>Acer</a>
+                                                        <span>(${countAcer})</span>
                                                     </div>
                                                 </li>
                                                 <li>
                                                     <div class="d-flex justify-content-between fruite-name">
-                                                        <a href="#"><i class="fas fa-apple-alt me-2"></i>Pumpkin</a>
-                                                        <span>(5)</span>
+                                                        <a href="#"><i class="fas fa-apple-alt me-2"></i>Lenovo</a>
+                                                        <span>(${countLenovo})</span>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="d-flex justify-content-between fruite-name">
+                                                        <a href="#"><i class="fas fa-apple-alt me-2"></i>LG</a>
+                                                        <span>(${countLG})</span>
                                                     </div>
                                                 </li>
                                             </ul>

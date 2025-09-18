@@ -185,7 +185,7 @@
 
         //upda const totalPriceElement: any
         const totalPriceElement = $('p[data-cart-total-price]');
-        let newTotal = 0;   // ✅ khai báo ngoài
+        let newTotal = 0;   // khai báo ngoài
 
         if (totalPriceElement && totalPriceElement.length) {
             const currentTotal = totalPriceElement.first().attr("data-cart-total-price");

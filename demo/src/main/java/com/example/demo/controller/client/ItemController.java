@@ -37,6 +37,13 @@ public class ItemController {
     @GetMapping("/product/{id}")
     public String getProductPage(Model model, @PathVariable long id) {
         model.addAttribute("product", productService.getProductById(id));
+
+        model.addAttribute("countApple", this.productService.getCountProductByFactory("APPLE"));
+        model.addAttribute("countDell", this.productService.getCountProductByFactory("DELL"));
+        model.addAttribute("countAsus", this.productService.getCountProductByFactory("ASUS"));
+        model.addAttribute("countAcer", this.productService.getCountProductByFactory("ACER"));
+        model.addAttribute("countLenovo", this.productService.getCountProductByFactory("LENOVO"));
+        model.addAttribute("countLG", this.productService.getCountProductByFactory("LG"));
         return "client/product/detail";
     }
 
@@ -47,8 +54,21 @@ public class ItemController {
         long productId = id;
         String email = (String) session.getAttribute("email");
 
-        productService.handleAddProductToCart(email, productId, session);
+        productService.handleAddProductToCart(email, productId, session, 1);
         return "redirect:/";
+    }
+
+    @PostMapping("/add-product-from-view-detail")
+    public String postpostAddProductFromDetail(
+            @RequestParam("id") long id,
+            @RequestParam("quantity") long quantity,
+            HttpServletRequest request) {
+
+        HttpSession session = request.getSession(false);
+
+        String email = (String) session.getAttribute("email");
+        this.productService.handleAddProductToCart(email, id, session, quantity);
+        return "redirect:/product/" + id;
     }
 
     @GetMapping("/cart")

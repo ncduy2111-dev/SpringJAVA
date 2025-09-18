@@ -44,6 +44,10 @@ public class OrderService {
         return this.orderRepository.findById(id).orElse(null);
     }
 
+    public List<Order> getAllOrderByUserId(long id) {
+        return this.orderRepository.findAllByUserId(id);
+    }
+
     public void deleteOrderById(long id) {
         this.orderRepository.deleteById(id);
     }

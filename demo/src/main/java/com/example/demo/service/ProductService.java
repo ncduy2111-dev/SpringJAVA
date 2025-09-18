@@ -57,7 +57,11 @@ public class ProductService {
         return this.productRepository.count();
     }
 
-    public void handleAddProductToCart(String email, long productId, HttpSession session) {
+    public long getCountProductByFactory(String factory) {
+        return this.productRepository.countByFactory(factory);
+    }
+
+    public void handleAddProductToCart(String email, long productId, HttpSession session, long quantity) {
         User user = userService.getOneUserByEmail(email);
 
         if (user != null) {
@@ -82,7 +86,7 @@ public class ProductService {
                     cartDetail.setCart(cart);
                     cartDetail.setProduct(realProduct);
                     cartDetail.setPrice(realProduct.getPrice());
-                    cartDetail.setQuantity(1);
+                    cartDetail.setQuantity(quantity);
                     this.cartDetailRepository.save(cartDetail);
 
                     // Cập nhật tổng số lượng sản phẩm trong giỏ hàng
@@ -91,7 +95,7 @@ public class ProductService {
                     session.setAttribute("sum", sum);
                     this.cartRepository.save(cart);
                 } else {
-                    oldDetail.setQuantity(oldDetail.getQuantity() + 1);
+                    oldDetail.setQuantity(oldDetail.getQuantity() + quantity);
                     this.cartDetailRepository.save(oldDetail);
                 }
             }

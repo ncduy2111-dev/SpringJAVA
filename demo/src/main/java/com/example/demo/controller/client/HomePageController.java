@@ -10,12 +10,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.example.demo.domain.Order;
 import com.example.demo.domain.Product;
 import com.example.demo.domain.User;
 import com.example.demo.domain.DTO.RegisterDTO;
+import com.example.demo.service.OrderService;
 import com.example.demo.service.ProductService;
 import com.example.demo.service.UserService;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
 @Controller
@@ -24,11 +28,15 @@ public class HomePageController {
     private final ProductService productService;
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
+    private final OrderService orderService;
 
-    public HomePageController(ProductService productService, UserService userService, PasswordEncoder passwordEncoder) {
+    public HomePageController(ProductService productService, UserService userService, PasswordEncoder passwordEncoder,
+            OrderService orderService) {
         this.productService = productService;
         this.userService = userService;
         this.passwordEncoder = passwordEncoder;
+        this.orderService = orderService;
+
     }
 
     @GetMapping("/")
@@ -64,20 +72,23 @@ public class HomePageController {
 
     @GetMapping("/login")
     public String getLoginPage(Model model) {
-        // model.addAttribute("loginUser", new LoginDTO());
         return "client/auth/login";
     }
 
     @GetMapping("/403")
     public String get403Page(Model model) {
-        // model.addAttribute("loginUser", new LoginDTO());
         return "client/auth/403";
     }
 
     @GetMapping("/history")
-    public String getHistoryPage(Model model) {
-        // List<Purchase> purchaseHistory = purchaseService.getPurchaseHistory();
-        // model.addAttribute("purchaseHistory", purchaseHistory);
+    public String getHistoryPage(Model model, HttpServletRequest request) {
+        User currentUser = new User();
+        HttpSession session = request.getSession(false);
+        long id = (long) session.getAttribute("id");
+        currentUser.setId(id);
+
+        List<Order> arrOrders = this.orderService.getAllOrderByUserId(id);
+        model.addAttribute("arrOrders", arrOrders);
         return "client/cart/history";
     }
 

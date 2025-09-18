@@ -70,69 +70,55 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <c:forEach var="cart" items="${carts}" varStatus="status">
+                                        <c:forEach var="order" items="${arrOrders}" varStatus="status">
                                             <tr>
+                                                <td class="align-middle">Đơn hàng thứ ${status.count}</td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td class="align-middle">
+                                                    <fmt:formatNumber type="number" value="${order.totalPrice}" />
+                                                    VNĐ
+                                                </td>
+                                                <td class="align-middle" class="mb-0 mt-4">${order.status}</td>
+                                            </tr>
+                                            <c:forEach var="orderDetail" items="${order.orderDetails}">
+                                                </tr>
                                                 <th scope="row">
                                                     <div class="d-flex align-items-center">
-                                                        <img src="/images/product/${cartDetail.product.image}"
+                                                        <img src="/images/product/${orderDetail.product.image}"
                                                             class="img-fluid me-5 rounded-circle"
                                                             style="width: 80px; height: 80px;" alt="">
                                                     </div>
                                                 </th>
 
                                                 <td class="align-middle">
-                                                    <a href="<c:url value='/product/${cartDetail.product.id}'/>"
+                                                    <a href="<c:url value='/product/${orderDetail.product.id}'/>"
                                                         class="mb-0 mt-4">
-                                                        ${cartDetail.product.name}
+                                                        ${orderDetail.product.name}
                                                     </a>
                                                 </td>
-
 
                                                 <td>
                                                     <p class="mb-0 mt-4">
                                                         <fmt:formatNumber type="number"
-                                                            value="${cartDetail.product.price}" /> VNĐ
+                                                            value="${orderDetail.product.price}" /> VNĐ
                                                     </p>
                                                 </td>
+
                                                 <td>
-                                                    <div class="input-group quantity mt-4" style="width: 100px;">
-                                                        <div class="input-group-btn">
-                                                            <button
-                                                                class="btn btn-sm btn-minus rounded-circle bg-light border">
-                                                                <i class="fa fa-minus"></i>
-                                                            </button>
-                                                        </div>
-                                                        <input type="text"
-                                                            class="form-control form-control-sm text-center border-0"
-                                                            value="${cartDetail.quantity}"
-                                                            data-cart-detail-id="${cartDetail.id}"
-                                                            data-cart-detail-price="${cartDetail.product.price}"
-                                                            data-cart-detail-index="${status.index}">
-                                                        <div class="input-group-btn">
-                                                            <button
-                                                                class="btn btn-sm btn-plus rounded-circle bg-light border">
-                                                                <i class="fa fa-plus"></i>
-                                                            </button>
-                                                        </div>
-                                                    </div>
+                                                    <p class="mb-0 mt-4"> ${orderDetail.quantity} </p>
                                                 </td>
+
                                                 <td>
-                                                    <p class="mb-0 mt-4" data-cart-detail-id="${cartDetail.id}">
+                                                    <p class="mb-0 mt-4">
                                                         <fmt:formatNumber type="number"
-                                                            value="${cartDetail.product.price * cartDetail.quantity}" />
+                                                            value="${orderDetail.price * orderDetail.quantity}" />
                                                         VNĐ
                                                     </p>
                                                 </td>
-                                                <td>
-                                                    <form action="/delete-cart-product/${cartDetail.id}" method="post">
-                                                        <input type="hidden" name="${_csrf.parameterName}"
-                                                            value="${_csrf.token}" />
-                                                        <button class="btn btn-md rounded-circle bg-light border mt-4">
-                                                            <i class="fa fa-times text-danger"></i>
-                                                        </button>
-                                                    </form>
-                                                </td>
-                                            </tr>
+                                                </tr>
+                                            </c:forEach>
                                         </c:forEach>
                                     </tbody>
                                 </table>
