@@ -131,21 +131,18 @@
 
 
 
-    // Product Quantity
-    // $('.quantity button').on('click', function () {
-    //     var button = $(this);
-    //     var oldValue = button.parent().parent().find('input').val();
-    //     if (button.hasClass('btn-plus')) {
-    //         var newVal = parseFloat(oldValue) + 1;
-    //     } else {
-    //         if (oldValue > 0) {
-    //             var newVal = parseFloat(oldValue) - 1;
-    //         } else {
-    //             newVal = 0;
-    //         }
-    //     }
-    //     button.parent().parent().find('input').val(newVal);
-    // });
+    // add active class to header
+    const navElement = $('#navbarCollapse');
+    const currentUrl = window.location.pathname;
+    navElement.find('a.nav-link').each(function () {
+        const link = $(this);
+        const href = link.attr('href');
+        if (href === currentUrl) {
+            link.addClass('active');
+        } else {
+            link.removeClass('active');
+        }
+    });
 
     $('.quantity button').on('click', function () {
         let change = 0;

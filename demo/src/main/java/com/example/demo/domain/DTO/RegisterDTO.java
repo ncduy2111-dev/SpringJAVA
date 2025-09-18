@@ -18,7 +18,7 @@ public class RegisterDTO {
     @Email(message = "Email không hợp lệ", regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$")
     private String email;
 
-    // @StrongPassword
+    @StrongPassword
     private String password;
 
     private String confirmPassword;

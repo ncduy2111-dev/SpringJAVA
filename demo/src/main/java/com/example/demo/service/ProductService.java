@@ -2,6 +2,8 @@ package com.example.demo.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.domain.Cart;
@@ -35,6 +37,10 @@ public class ProductService {
 
     public List<Product> getAllProducts() {
         return this.productRepository.findAll();
+    }
+
+    public Page<Product> getAllProductsByPage(Pageable pageable) {
+        return this.productRepository.findAll(pageable);
     }
 
     public Product getProductById(long id) {

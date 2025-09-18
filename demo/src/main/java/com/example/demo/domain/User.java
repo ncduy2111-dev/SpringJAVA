@@ -2,8 +2,6 @@ package com.example.demo.domain;
 
 import java.util.List;
 
-import com.example.demo.service.validator.StrongPassword;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
