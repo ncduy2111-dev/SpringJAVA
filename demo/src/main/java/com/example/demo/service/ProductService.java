@@ -13,6 +13,7 @@ import com.example.demo.domain.User;
 import com.example.demo.repository.CartDetailRepository;
 import com.example.demo.repository.CartRepository;
 import com.example.demo.repository.ProductRepository;
+import com.example.demo.service.specification.ProductSpecs;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -41,6 +42,35 @@ public class ProductService {
 
     public Page<Product> getAllProductsByPage(Pageable pageable) {
         return this.productRepository.findAll(pageable);
+    }
+
+    public Page<Product> getAllProductsWithSpec(Pageable pageable, String name) {
+        return this.productRepository.findAll(ProductSpecs.nameLike(name), pageable);
+    }
+
+    public Page<Product> getAllProductsWithSpecMinPrice(Pageable pageable, double minPrice) {
+        return this.productRepository.findAll(ProductSpecs.minPrice(minPrice), pageable);
+    }
+
+    public Page<Product> getAllProductsWithSpecMaxPrice(Pageable pageable, double maxPrice) {
+        return this.productRepository.findAll(ProductSpecs.maxPrice(maxPrice), pageable);
+    }
+
+    public Page<Product> getAllProductsWithSpecFactory(Pageable pageable, String factory) {
+        return this.productRepository.findAll(ProductSpecs.factoryLike(factory), pageable);
+    }
+
+    public Page<Product> getAllProductsWithSpecFactories(Pageable pageable, List<String> factories) {
+        return this.productRepository.findAll(ProductSpecs.factoryMapping(factories), pageable);
+    }
+
+    public Page<Product> getAllProductsWithSpecBetweenPrice(Pageable pageable, String price) {
+        if (price.equals("10-15TR")) {
+            double minPrice = 10000000;
+            double maxPrice = 15000000;
+            return this.productRepository.findAll(ProductSpecs.priceBetween(minPrice, maxPrice), pageable);
+        } else
+            return this.productRepository.findAll(pageable);
     }
 
     public Product getProductById(long id) {

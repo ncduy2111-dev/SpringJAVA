@@ -155,24 +155,26 @@
 
                                             <div class="col-12">
                                                 <div class="mb-2"><b>Sắp xếp:</b></div>
+
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="radio" id="sort-1"
+                                                    <input class="form-check-input" type="radio" id="sort-1" name="sort"
                                                         value="TANG">
-                                                    <label class="form-check-label" for="sort-1">Giá tăng
-                                                        dần</label>
+                                                    <label class="form-check-label" for="sort-1">Giá tăng dần</label>
                                                 </div>
+
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="radio" id="sort-2"
+                                                    <input class="form-check-input" type="radio" id="sort-2" name="sort"
                                                         value="GIAM">
-                                                    <label class="form-check-label" for="sort-2">Giá giảm
-                                                        dần</label>
+                                                    <label class="form-check-label" for="sort-2">Giá giảm dần</label>
                                                 </div>
+
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="radio" id="sort-0"
+                                                    <input class="form-check-input" type="radio" id="sort-0" name="sort"
                                                         value="KHONGSX">
                                                     <label class="form-check-label" for="sort-0">Không sắp xếp</label>
                                                 </div>
                                             </div>
+
 
                                             <div class="d-flex justify-content-center my-4">
                                                 <a href="#"
@@ -237,7 +239,7 @@
                                     <div class="col-12">
                                         <div class="pagination d-flex justify-content-center mt-5">
                                             <li class="page-item">
-                                                <a class="rounded ${currentPage eq 1 ? '#' : '/products?page='+(currentPage - 1)}"
+                                                <a class=" ${currentPage eq 1 ? 'disabled rounded' : 'rounded'}"
                                                     href="/products?page=${currentPage - 1}" aria-label="Previous">
                                                     <span aria-hidden="true">&laquo;</span>
                                                 </a>
