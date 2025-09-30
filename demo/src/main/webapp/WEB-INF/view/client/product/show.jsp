@@ -61,7 +61,7 @@
                                 <div class="row g-4 fruite">
                                     <div class="col-12 col-md-4">
                                         <div class="row g-4">
-                                            <div class="col-12">
+                                            <div class="col-12" id="factoryFilter">
                                                 <div class="mb-2"><b>Hãng sản xuất:</b></div>
                                                 <div class="form-check form-check-inline">
                                                     <input class="form-check-input" type="checkbox" id="factory-1"
@@ -95,7 +95,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-12">
+                                            <div class="col-12" id="targetFilter">
                                                 <div class="mb-2"><b>Mục đích sử dụng:</b></div>
                                                 <div class="form-check form-check-inline">
                                                     <input class="form-check-input" type="checkbox" id="target-1"
@@ -126,7 +126,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-12">
+                                            <div class="col-12" id="priceFilter">
                                                 <div class="mb-2"><b>Mức giá:</b></div>
                                                 <div class="form-check form-check-inline">
                                                     <input class="form-check-input" type="checkbox" id="price-1"
@@ -142,13 +142,13 @@
                                                 </div>
                                                 <div class="form-check form-check-inline">
                                                     <input class="form-check-input" type="checkbox" id="price-3"
-                                                        value="THIET-KE-DO-HOA">
+                                                        value="15-20TR">
                                                     <label class="form-check-label" for="price-3">Từ 15 - 20
                                                         triệu</label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
                                                     <input class="form-check-input" type="checkbox" id="price-4"
-                                                        value="MONG-NHE">
+                                                        value="TREN-20TR">
                                                     <label class="form-check-label" for="price-4">Trên 20 triệu</label>
                                                 </div>
                                             </div>
@@ -169,17 +169,19 @@
                                                 </div>
 
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="radio" id="sort-0" name="sort"
-                                                        value="KHONGSX">
+                                                    <input class="form-check-input" type="radio" id="sort-0"
+                                                        name="radio-sort" checked value="KHONGSX">
                                                     <label class="form-check-label" for="sort-0">Không sắp xếp</label>
                                                 </div>
                                             </div>
 
 
                                             <div class="d-flex justify-content-center my-4">
-                                                <a href="#"
-                                                    class="btn border border-secondary px-4 py-3 rounded-pill text-primary w-100">Lọc
-                                                    sản phẩm</a>
+                                                <button
+                                                    class="btn border border-secondary px-4 py-3 rounded-pill text-primary w-100"
+                                                    id="btnFilter">
+                                                    Lọc sản phẩm
+                                                </button>
                                             </div>
                                         </div>
                                     </div>

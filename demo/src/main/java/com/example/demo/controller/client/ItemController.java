@@ -44,10 +44,10 @@ public class ItemController {
     public String getProductPage(Model model,
             @RequestParam("page") Optional<String> pageOptional,
             @RequestParam("name") Optional<String> nameOptional,
+            @RequestParam("factory") Optional<String> factoryOptional,
             @RequestParam("price") Optional<String> priceOptional,
-            @RequestParam("min-price") Optional<String> minPriceOptional,
-            @RequestParam("max-Price") Optional<String> maxPriceOptional,
-            @RequestParam("factory") Optional<String> factoryOptional) {
+            @RequestParam("target") Optional<String> targetOptional,
+            @RequestParam("sort") Optional<String> sortOptional) {
         int page = 1;
 
         try {
@@ -64,15 +64,14 @@ public class ItemController {
         Pageable pageable = PageRequest.of(page - 1, 20);
 
         String name = nameOptional.isPresent() ? nameOptional.get() : "";
-        double minPrice = minPriceOptional.isPresent() ? Double.parseDouble(minPriceOptional.get()) : 0;
-        double maxPrice = maxPriceOptional.isPresent() ? Double.parseDouble(maxPriceOptional.get()) : 0;
         String factory = factoryOptional.isPresent() ? factoryOptional.get() : "";
-        // List<String> factories = Arrays.asList(factoryOptional.get().split(","));
-        String price = priceOptional.isPresent() ? priceOptional.get() : "";
+        List<String> factories = Arrays.asList(factoryOptional.get().split(","));
+        List<String> prices = Arrays.asList(priceOptional.get().split(","));
+        List<String> targets = Arrays.asList(targetOptional.get().split(","));
+        String sort = sortOptional.isPresent() ? sortOptional.get() : "KHONGSX";
         // Page<Product> pageProduct =
-        // this.productService.getAllProductsWithSpecMinPrice(pageable, minPrice);
-        Page<Product> pageProduct = this.productService.getAllProductsWithSpecBetweenPrice(pageable, price);
-
+        // this.productService.getAllProductsWithSpecBetweenPrice(pageable, prices);
+        Page<Product> pageProduct = this.productService.getAllProductsByPage(pageable);
         List<Product> arrProduct = pageProduct.getContent();
 
         model.addAttribute("arrProducts", arrProduct);

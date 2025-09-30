@@ -210,5 +210,91 @@
         return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(number);
     }
 
+    // handle filter products
+    $('#btnFilter').click(function () {
+        let factoryArr = [];
+        let targetArr = [];
+        let priceArr = [];
+
+        // factory filter
+        $("#factoryFilter .form-check-input:checked").each(function () {
+            factoryArr.push($(this).val());
+        });
+
+        // target filter
+        $("#targetFilter .form-check-input:checked").each(function () {
+            targetArr.push($(this).val());
+        });
+
+        // price filter
+        $("#priceFilter .form-check-input:checked").each(function () {
+            priceArr.push($(this).val());
+        });
+
+        // sort order
+        let sortValue = $('input[name="radio-sort"]:checked').val();
+
+        const currentUrl = new URL(window.location.href);
+        const searchParams = currentUrl.searchParams;
+
+        // Add or update query parameters
+        searchParams.set('page', '1');
+        searchParams.set('sort', sortValue);
+
+        if (factoryArr.length > 0) {
+            searchParams.set('factory', factoryArr.join(','));
+        }
+        if (targetArr.length > 0) {
+            searchParams.set('target', targetArr.join(','));
+        }
+        if (priceArr.length > 0) {
+            searchParams.set('price', priceArr.join(','));
+        }
+
+        // Update the URL without reloading the page
+        window.location.href = currentUrl.toString();
+    });
+
+    // giữ trạng thái filter khi reload
+    $(document).ready(function () {
+        const params = new URLSearchParams(window.location.search);
+
+        // factory
+        if (params.has("factory")) {
+            const factories = params.get("factory").split(",");
+            $("#factoryFilter .form-check-input").each(function () {
+                if (factories.includes($(this).val())) {
+                    $(this).prop("checked", true);
+                }
+            });
+        }
+
+        // target
+        if (params.has("target")) {
+            const targets = params.get("target").split(",");
+            $("#targetFilter .form-check-input").each(function () {
+                if (targets.includes($(this).val())) {
+                    $(this).prop("checked", true);
+                }
+            });
+        }
+
+        // price
+        if (params.has("price")) {
+            const prices = params.get("price").split(",");
+            $("#priceFilter .form-check-input").each(function () {
+                if (prices.includes($(this).val())) {
+                    $(this).prop("checked", true);
+                }
+            });
+        }
+
+        // sort
+        if (params.has("sort")) {
+            const sort = params.get("sort");
+            $(`input[name="radio-sort"][value="${sort}"]`).prop("checked", true);
+        }
+    });
+
 })(jQuery);
 

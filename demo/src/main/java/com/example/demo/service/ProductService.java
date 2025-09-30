@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.domain.Cart;
@@ -64,13 +65,39 @@ public class ProductService {
         return this.productRepository.findAll(ProductSpecs.factoryMapping(factories), pageable);
     }
 
-    public Page<Product> getAllProductsWithSpecBetweenPrice(Pageable pageable, String price) {
-        if (price.equals("10-15TR")) {
-            double minPrice = 10000000;
-            double maxPrice = 15000000;
-            return this.productRepository.findAll(ProductSpecs.priceBetween(minPrice, maxPrice), pageable);
-        } else
+    public Page<Product> getAllProductsWithSpecBetweenPrice(Pageable pageable, List<String> prices) {
+        Specification<Product> spec = Specification.where(null);
+        long count = 0;
+
+        for (String price : prices) {
+            switch (price) {
+                case "DUOI-5TR":
+                    spec = spec.or(ProductSpecs.maxPrice(5_000_000));
+                    count++;
+                    break;
+                case "5-10TR":
+                    spec = spec.or(ProductSpecs.priceBetween(5_000_000, 10_000_000));
+                    count++;
+                    break;
+                case "10-15TR":
+                    spec = spec.or(ProductSpecs.priceBetween(10_000_000, 15_000_000));
+                    count++;
+                    break;
+                case "15-20TR":
+                    spec = spec.or(ProductSpecs.priceBetween(15_000_000, 20_000_000));
+                    count++;
+                    break;
+                case "TREN-20TR":
+                    spec = spec.or(ProductSpecs.minPrice(20_000_000));
+                    count++;
+                    break;
+            }
+        }
+
+        if (count == 0) {
             return this.productRepository.findAll(pageable);
+        } else
+            return this.productRepository.findAll(spec, pageable);
     }
 
     public Product getProductById(long id) {
