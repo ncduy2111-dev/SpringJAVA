@@ -1,0 +1,210 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(to right, #d7d2cc, #304352);
+}
+
+.container {
+    position: relative;
+    width: 850px;
+    height: 500px;
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    display: flex;
+    overflow: hidden;
+}
+
+/* ========== FORM BOX (SIGN IN / SIGN UP) ========== */
+.form-box {
+    flex: 1;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: #fff;
+}
+
+h2.title {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.input-box {
+    position: relative;
+    margin: 20px 0;
+}
+
+.input-box input {
+    width: 100%;
+    padding: 12px 40px 12px 15px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    outline: none;
+    transition: 0.3s;
+    font-size: 15px;
+}
+
+.input-box input:focus {
+    border-color: #7b2ff7;
+    box-shadow: 0 0 5px rgba(123, 47, 247, 0.3);
+}
+
+.input-box label {
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    transform: translateY(-50%);
+    font-size: 14px;
+    color: #777;
+    transition: 0.3s;
+    pointer-events: none;
+    background: #fff;
+}
+
+.input-box input:focus+label,
+.input-box :not(:placeholder-shown)+label {
+    top: -8px;
+    left: 10px;
+    font-size: 12px;
+    color: #7b2ff7;
+    padding: 0 5px;
+}
+
+.input-box i {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #777;
+    font-size: 18px;
+}
+
+.input-box input::placeholder {
+    color: white;
+    opacity: 1;
+}
+
+.btn {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    background: #7b2ff7;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn:hover {
+    background: #5a10d2;
+}
+
+.social-login {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.social-login button {
+    border: 1px solid #ccc;
+    background: transparent;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.3s;
+}
+
+.social-login button:hover {
+    background: #f1f1f1;
+}
+
+.forgot-pass {
+    display: inline-block;
+    margin: 10px 0;
+    font-size: 14px;
+    color: #7b2ff7;
+    text-decoration: none;
+}
+
+.overlay {
+    width: 50%;
+    background: #81C408;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    padding: 40px;
+
+    border-radius: 10px;
+    /* Tất cả các góc sẽ bo 10px */
+
+    border-top-left-radius: 200px;
+    border-bottom-left-radius: 180px;
+
+}
+
+.overlay-panel h2 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+.overlay-panel p {
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+.btn-outline {
+    background: transparent;
+    border: 2px solid #fff;
+    color: #fff;
+    padding: 10px 25px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-outline:hover {
+    background: #fff;
+    color: #7b2ff7;
+}
+
+.btn-lg {
+    background: transparent;
+    border: 2px solid #000000;
+    color: #000000;
+    padding: 10px 90px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-lg:hover {
+    background: #fff;
+    color: #7b2ff7;
+}

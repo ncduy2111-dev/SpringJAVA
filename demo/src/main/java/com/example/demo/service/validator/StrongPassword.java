@@ -16,7 +16,7 @@ import jakarta.validation.Payload;
 @Documented
 public @interface StrongPassword {
 
-    String message() default "Pass phải có ít nhất 8 ký tự";
+    String message() default "Mật khẩu không hợp lệ";
 
     Class<?>[] groups() default {};
 

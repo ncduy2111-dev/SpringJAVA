@@ -3,96 +3,67 @@
         <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
             <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
                 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-
-                    <html lang="en">
-
-                    <head>
-                        <meta charset="UTF-8">
-                        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                        <title>Document</title>
-                        <title>Login - SB Admin</title>
-                        <link href="/css/styles.css" rel="stylesheet" />
-                        <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js"
-                            crossorigin="anonymous"></script>
+                    <title>Login - LaptopShop</title>
+                    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+                    <link rel="stylesheet" href="/client/css/styleLogin.css">
                     </head>
 
-                    <body class="bg-primary">
-                        <div id="layoutAuthentication">
-                            <div id="layoutAuthentication_content">
-                                <main>
-                                    <div class="container">
-                                        <div class="row justify-content-center">
-                                            <div class="col-lg-5">
-                                                <div class="card shadow-lg border-0 rounded-lg mt-5">
-                                                    <div class="card-header">
-                                                        <h3 class="text-center font-weight-light my-4">Login</h3>
-                                                    </div>
-                                                    <div class="card-body">
-                                                        <form method="post" action="/login">
-                                                            <c:if test="${param.error!= null}">
-                                                                <div class="my-2" style="color: red;">Invalid email or
-                                                                    password.</div>
-                                                            </c:if>
-                                                            <c:if test="${param.logout!= null}">
-                                                                <div class="my-2" style="color: green;">Logout
-                                                                    successful.
-                                                                </div>
-                                                            </c:if>
-                                                            <div class="form-floating mb-3">
-                                                                <input class="form-control" id="inputEmail" type="email"
-                                                                    placeholder="name@example.com" name="username" />
-                                                                <label for="inputEmail">Email address</label>
-                                                            </div>
-                                                            <div class="form-floating mb-3">
-                                                                <input class="form-control" id="inputPassword"
-                                                                    type="password" placeholder="Password"
-                                                                    name="password" />
-                                                                <label for="inputPassword">Password</label>
-                                                            </div>
+                    <body>
+                        <div class="container">
+                            <!-- Sign In Form -->
+                            <div class="form-box login">
+                                <h2 class="title animation" style="--i: 10; --j: 0">Sign In</h2>
 
-                                                            <div>
-                                                                <input type="hidden" name="${_csrf.parameterName}"
-                                                                    value="${_csrf.token}" />
-                                                            </div>
+                                <div class="social-login">
+                                    <button><i class='bx bxl-google'></i></button>
+                                    <button><i class='bx bxl-facebook'></i></button>
+                                    <button><i class='bx bxl-github'></i></button>
+                                    <button><i class='bx bxl-linkedin'></i></button>
+                                </div>
 
-                                                            <div class="mt-4 mb-0">
-                                                                <div class="d-grid">
-                                                                    <button type="submit"
-                                                                        class="btn btn-primary btn-block">Login</button>
-                                                                </div>
-                                                            </div>
-                                                        </form>
-                                                    </div>
-                                                    <div class="card-footer text-center py-3">
-                                                        <div class="small"><a href="/register">Need an account? Sign
-                                                                up!</a></div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                <form method="post" action="/login">
+                                    <c:if test="${param.error!= null}">
+                                        <div class="my-2" style="color: red;">Invalid email or
+                                            password.</div>
+                                    </c:if>
+                                    <c:if test="${param.logout!= null}">
+                                        <div class="my-2" style="color: green;">Logout
+                                            successful.
                                         </div>
+                                    </c:if>
+                                    <div class="input-box animation" style="--i: 11; --j: 1">
+                                        <input id="inputEmail" type="email" name="username" placeholder=" " />
+                                        <label>Email</label>
+                                        <i class="bx bxs-envelope"></i>
                                     </div>
-                                </main>
+
+                                    <div class="input-box animation" style="--i: 12; --j: 2">
+                                        <input id="inputPassword" type="password" name="password" placeholder=" " />
+                                        <label>Password</label>
+                                        <i class="bx bxs-lock-alt"></i>
+                                    </div>
+
+                                    <div>
+                                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                                    </div>
+
+                                    <a href="#" class="forgot-pass">Forgot Your Password?</a>
+
+                                    <button type="submit" class="btn animation" style="--i: 13; --j: 3">
+                                        Sign In
+                                    </button>
+                                </form>
                             </div>
-                            <div id="layoutAuthentication_footer">
-                                <footer class="py-4 bg-light mt-auto">
-                                    <div class="container-fluid px-4">
-                                        <div class="d-flex align-items-center justify-content-between small">
-                                            <div class="text-muted">Copyright &copy; Your Website 2023</div>
-                                            <div>
-                                                <a href="#">Privacy Policy</a>
-                                                &middot;
-                                                <a href="#">Terms &amp; Conditions</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </footer>
+
+                            <!-- Overlay Right Section -->
+                            <div class="overlay">
+                                <div class="overlay-panel">
+                                    <h2>Hello, Friend!</h2>
+                                    <p>Đăng ký thông tin cá nhân của bạn để sử dụng tất cả các tính năng của trang web
+                                    </p>
+                                    <a href="${pageContext.request.contextPath}/register" class="btn-outline">Sign
+                                        Up</a>
+                                </div>
                             </div>
                         </div>
-                        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
-                            crossorigin="anonymous"></script>
-                        <script src="/js/scripts.js"></script>
                     </body>
-
-                    </html>
-
-                    </html>

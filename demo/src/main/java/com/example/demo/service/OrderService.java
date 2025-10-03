@@ -55,7 +55,13 @@ public class OrderService {
     }
 
     public void deleteOrderById(long id) {
-        this.orderRepository.deleteById(id);
+        Order order = this.orderRepository.findById(id).orElse(null);
+        if (order != null) {
+            for (OrderDetail orderDetail : order.getOrderDetails()) {
+                this.orderDetailRepository.delete(orderDetail);
+            }
+            this.orderRepository.delete(order);
+        }
     }
 
     public long getCountOrder() {
