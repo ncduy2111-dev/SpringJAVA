@@ -3,10 +3,19 @@ package com.example.demo.domain.DTO;
 import java.util.Optional;
 
 public class ProductCriteriaDTO {
+    private Optional<String> page;
     private Optional<String> factories;
     private Optional<String> targets;
     private Optional<String> prices;
     private Optional<String> sort;
+
+    public Optional<String> getPage() {
+        return page;
+    }
+
+    public void setPage(Optional<String> page) {
+        this.page = page;
+    }
 
     public Optional<String> getFactories() {
         return factories;
@@ -39,4 +48,5 @@ public class ProductCriteriaDTO {
     public void setSort(Optional<String> sort) {
         this.sort = sort;
     }
+
 }

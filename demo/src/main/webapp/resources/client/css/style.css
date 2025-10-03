@@ -510,4 +510,12 @@
     line-height: 35px;
 }
 
+.icon-zalo {
+    background: url('/images/icons/zalo.svg') no-repeat center;
+    background-size: 70%;
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+}
+
 /*** Footer End ***/

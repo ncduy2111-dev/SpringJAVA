@@ -101,7 +101,7 @@ public class OrderService {
                 this.cartDetailRepository.deleteById(cartDetail.getId());
             }
 
-            this.cartRepository.delete(cart);
+            // this.cartRepository.delete(cart);
 
             session.setAttribute("sum", 0);
         }

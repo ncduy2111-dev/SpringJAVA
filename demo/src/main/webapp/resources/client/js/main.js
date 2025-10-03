@@ -239,16 +239,25 @@
 
         // Add or update query parameters
         searchParams.set('page', '1');
+        // if (sortValue == null) {
+        //     sortValue = 'KHONGSX';
+        // }
         searchParams.set('sort', sortValue);
 
+
+        //reset param
+        searchParams.delete('factories');
+        searchParams.delete('targets');
+        searchParams.delete('prices');
+
         if (factoryArr.length > 0) {
-            searchParams.set('factory', factoryArr.join(','));
+            searchParams.set('factories', factoryArr.join(','));
         }
         if (targetArr.length > 0) {
-            searchParams.set('target', targetArr.join(','));
+            searchParams.set('targets', targetArr.join(','));
         }
         if (priceArr.length > 0) {
-            searchParams.set('price', priceArr.join(','));
+            searchParams.set('prices', priceArr.join(','));
         }
 
         // Update the URL without reloading the page
@@ -260,8 +269,8 @@
         const params = new URLSearchParams(window.location.search);
 
         // factory
-        if (params.has("factory")) {
-            const factories = params.get("factory").split(",");
+        if (params.has("factories")) {
+            const factories = params.get("factories").split(",");
             $("#factoryFilter .form-check-input").each(function () {
                 if (factories.includes($(this).val())) {
                     $(this).prop("checked", true);
@@ -270,8 +279,8 @@
         }
 
         // target
-        if (params.has("target")) {
-            const targets = params.get("target").split(",");
+        if (params.has("targets")) {
+            const targets = params.get("targets").split(",");
             $("#targetFilter .form-check-input").each(function () {
                 if (targets.includes($(this).val())) {
                     $(this).prop("checked", true);
@@ -280,8 +289,8 @@
         }
 
         // price
-        if (params.has("price")) {
-            const prices = params.get("price").split(",");
+        if (params.has("prices ")) {
+            const prices = params.get("prices").split(",");
             $("#priceFilter .form-check-input").each(function () {
                 if (prices.includes($(this).val())) {
                     $(this).prop("checked", true);

@@ -11,6 +11,7 @@ import com.example.demo.domain.Cart;
 import com.example.demo.domain.CartDetail;
 import com.example.demo.domain.Product;
 import com.example.demo.domain.User;
+import com.example.demo.domain.DTO.ProductCriteriaDTO;
 import com.example.demo.repository.CartDetailRepository;
 import com.example.demo.repository.CartRepository;
 import com.example.demo.repository.ProductRepository;
@@ -45,59 +46,53 @@ public class ProductService {
         return this.productRepository.findAll(pageable);
     }
 
-    public Page<Product> getAllProductsWithSpec(Pageable pageable, String name) {
-        return this.productRepository.findAll(ProductSpecs.nameLike(name), pageable);
-    }
-
-    public Page<Product> getAllProductsWithSpecMinPrice(Pageable pageable, double minPrice) {
-        return this.productRepository.findAll(ProductSpecs.minPrice(minPrice), pageable);
-    }
-
-    public Page<Product> getAllProductsWithSpecMaxPrice(Pageable pageable, double maxPrice) {
-        return this.productRepository.findAll(ProductSpecs.maxPrice(maxPrice), pageable);
-    }
-
-    public Page<Product> getAllProductsWithSpecFactory(Pageable pageable, String factory) {
-        return this.productRepository.findAll(ProductSpecs.factoryLike(factory), pageable);
-    }
-
-    public Page<Product> getAllProductsWithSpecFactories(Pageable pageable, List<String> factories) {
-        return this.productRepository.findAll(ProductSpecs.factoryMapping(factories), pageable);
-    }
-
-    public Page<Product> getAllProductsWithSpecBetweenPrice(Pageable pageable, List<String> prices) {
+    public Page<Product> getAllProductsByFilter(Pageable pageable, ProductCriteriaDTO productCriteriaDTO) {
         Specification<Product> spec = Specification.where(null);
-        long count = 0;
 
-        for (String price : prices) {
-            switch (price) {
-                case "DUOI-5TR":
-                    spec = spec.or(ProductSpecs.maxPrice(5_000_000));
-                    count++;
-                    break;
-                case "5-10TR":
-                    spec = spec.or(ProductSpecs.priceBetween(5_000_000, 10_000_000));
-                    count++;
-                    break;
-                case "10-15TR":
-                    spec = spec.or(ProductSpecs.priceBetween(10_000_000, 15_000_000));
-                    count++;
-                    break;
-                case "15-20TR":
-                    spec = spec.or(ProductSpecs.priceBetween(15_000_000, 20_000_000));
-                    count++;
-                    break;
-                case "TREN-20TR":
-                    spec = spec.or(ProductSpecs.minPrice(20_000_000));
-                    count++;
-                    break;
+        // Factory filter
+        if (productCriteriaDTO.getFactories() != null) {
+            Specification<Product> factorySpec = Specification.where(null);
+            for (String factory : productCriteriaDTO.getFactories().get().split(",")) {
+                factorySpec = factorySpec.or(ProductSpecs.factoryLike(factory));
             }
+            spec = spec.and(factorySpec);
         }
 
-        if (count == 0) {
-            return this.productRepository.findAll(pageable);
-        } else
-            return this.productRepository.findAll(spec, pageable);
+        // Target filter
+        if (productCriteriaDTO.getTargets() != null) {
+            Specification<Product> targetSpec = Specification.where(null);
+            for (String target : productCriteriaDTO.getTargets().get().split(",")) {
+                targetSpec = targetSpec.or(ProductSpecs.targetLike(target));
+            }
+            spec = spec.and(targetSpec);
+        }
+        // Price filter
+        if (productCriteriaDTO.getPrices() != null) {
+            Specification<Product> priceSpec = Specification.where(null);
+            for (String price : productCriteriaDTO.getPrices().get().split(",")) {
+                switch (price) {
+                    case "DUOI-5TR":
+                        priceSpec = priceSpec.or(ProductSpecs.maxPrice(5_000_000));
+                        break;
+                    case "5-10TR":
+                        priceSpec = priceSpec.or(ProductSpecs.priceBetween(5_000_000, 10_000_000));
+                        break;
+                    case "10-15TR":
+                        priceSpec = priceSpec.or(ProductSpecs.priceBetween(10_000_000, 15_000_000));
+                        break;
+                    case "15-20TR":
+                        priceSpec = priceSpec.or(ProductSpecs.priceBetween(15_000_000, 20_000_000));
+                        break;
+                    case "TREN-20TR":
+                        priceSpec = priceSpec.or(ProductSpecs.minPrice(20_000_000));
+                        break;
+                }
+            }
+
+            spec = spec.and(priceSpec);
+        }
+
+        return this.productRepository.findAll(spec, pageable);
     }
 
     public Product getProductById(long id) {

@@ -24,6 +24,10 @@ public class ProductSpecs {
         return (root, query, criteriaBuilder) -> criteriaBuilder.like(root.get(Product_.FACTORY), "%" + factory + "%");
     }
 
+    public static Specification<Product> targetLike(String target) {
+        return (root, query, criteriaBuilder) -> criteriaBuilder.like(root.get(Product_.TARGET), "%" + target + "%");
+    }
+
     public static Specification<Product> factoryMapping(List<String> factories) {
         return (root, query, criteriaBuilder) -> criteriaBuilder.in(root.get(Product_.FACTORY)).value(factories);
     }

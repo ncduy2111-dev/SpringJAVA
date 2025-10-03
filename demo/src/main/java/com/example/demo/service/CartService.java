@@ -37,15 +37,20 @@ public class CartService {
 
             this.cartDetailRepository.deleteById(cartDetailId);
 
-            if (cartCurrent.getSum() > 1) {
-                int sum = cartCurrent.getSum() - 1;
-                cartCurrent.setSum(sum);
-                session.setAttribute("sum", sum);
-                this.cartRepository.save(cartCurrent);
-            } else {
-                this.cartRepository.delete(cartCurrent);
-                session.setAttribute("sum", 0);
-            }
+            // if (cartCurrent.getSum() > 1) {
+            // int sum = cartCurrent.getSum() - 1;
+            // cartCurrent.setSum(sum);
+            // session.setAttribute("sum", sum);
+            // this.cartRepository.save(cartCurrent);
+            // } else {
+            // this.cartRepository.delete(cartCurrent);
+            // session.setAttribute("sum", 0);
+            // }
+
+            int sum = cartCurrent.getSum() - 1;
+            cartCurrent.setSum(sum);
+            session.setAttribute("sum", sum);
+            this.cartRepository.save(cartCurrent);
         }
     }
 
